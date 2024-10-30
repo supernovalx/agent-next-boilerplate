@@ -24,9 +24,31 @@ export async function GET() {
         "x-mb": {
             "account-id": key.accountId,
             assistant: {
-                name: "Your Assistant",
-                description: "An assistant that answers with blockchain information",
-                instructions: "You answer with a list of blockchains. Use the tools to get blockchain information.",
+                name: "Python Code Runner Assistant",
+                description: "An assistant that helps run Python code securely using Wasmer",
+                instructions: `I'm here to help you run Python code! I can execute Python code snippets securely using Wasmer.
+
+## 📝 Code Guidelines
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. CODE FORMAT
+• Must be valid Python code
+• Can include multiple lines
+• Standard Python libraries are supported
+• Code runs in an isolated environment
+
+2. LIMITATIONS
+• Network access is restricted
+• File system access is limited
+• Long-running operations may timeout
+• Memory usage is bounded
+
+3. BEST PRACTICES
+• Include error handling in your code
+• Keep code concise and focused
+• Use print() for output
+• Test complex logic in smaller parts
+
+Let me know what Python code you'd like to run!`,
                 tools: [{ type: "generate-transaction" }]
             },
         },
@@ -382,6 +404,74 @@ export async function GET() {
                                             error: {
                                                 type: "string",
                                                 description: "Error message"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/tools/python-interpreter": {
+                get: {
+                    summary: "Python interpreter",
+                    description: "Run Python code and get the output",
+                    operationId: "pythonInterpreter",
+                    parameters: [
+                        {
+                            name: "code",
+                            in: "query",
+                            required: true,
+                            schema: {
+                                type: "string"
+                            },
+                            description: "The Python code to execute"
+                        }
+                    ],
+                    responses: {
+                        "200": {
+                            description: "Successful execution",
+                            content: {
+                                "application/json": {
+                                    schema: {
+                                        type: "object",
+                                        properties: {
+                                            output: {
+                                                type: "string",
+                                                description: "The output from executing the Python code"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "400": {
+                            description: "Bad request",
+                            content: {
+                                "application/json": {
+                                    schema: {
+                                        type: "object",
+                                        properties: {
+                                            error: {
+                                                type: "string",
+                                                description: "Error message when no code is provided"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "500": {
+                            description: "Server error",
+                            content: {
+                                "application/json": {
+                                    schema: {
+                                        type: "object",
+                                        properties: {
+                                            error: {
+                                                type: "string",
+                                                description: "Error message when execution fails"
                                             }
                                         }
                                     }
