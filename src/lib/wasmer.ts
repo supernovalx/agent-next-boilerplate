@@ -12,10 +12,24 @@ export const getWasmer = async () => {
         console.log("Running in Node.js environment");
         // Node.js environment
         const { Wasmer, init } = await import("@wasmer/sdk/node");
+        const fs = require('fs').promises;
+        const path = require('path');
 
-        await init({
-            module: ""
-        });
+        const wasmPath = path.join(process.cwd(), 'public', 'wasmer_js_bg.wasm');
+        let module = await fs.readFile(wasmPath);
+
+        console.log(module);
+
+        try {
+            await init({
+                module: module,
+            });
+        } catch (error) {
+            console.error("Failed to initialize Wasmer:", error);
+        }
+
+        console.log("Wasmer initialized");
+
         return Wasmer;
     }
 }

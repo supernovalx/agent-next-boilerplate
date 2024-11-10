@@ -482,6 +482,24 @@ Let me know what Python code you'd like to run!`,
                 }
             }
         },
+        "x-wasm-containers": {
+            "python-interpreter": 
+            {
+                command: [{
+                    module: "wasmer/python:python",
+                    name: "myCommand",
+                    runner: "https://webc.org/runner/wasi",
+                    annotations: {
+                        wasi: {
+                            "main-args": ["/app/myapp.py"],
+                        },
+                    },
+                }],
+                dependencies: {
+                    "wasmer/python": "3.12.5+build.7",
+                },
+            }
+        }
     };
 
     return NextResponse.json(pluginData);
