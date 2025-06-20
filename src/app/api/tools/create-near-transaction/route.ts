@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { parseUnits } from 'viem';
 
-export const parseNearAmount = (x: string | null) => x ? parseUnits(x.toString(), 24).toString(): null;
-
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -14,7 +12,7 @@ export async function GET(request: Request) {
     }
 
     // Convert amount to yoctoNEAR (1 NEAR = 10^24 yoctoNEAR)
-    const amountInYoctoNEAR = parseNearAmount(amount);
+    const amountInYoctoNEAR = parseUnits(amount, 24).toString();
 
     if (!amountInYoctoNEAR) {
       return NextResponse.json({ error: 'Invalid amount' }, { status: 400 });
