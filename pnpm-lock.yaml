@@ -15,8 +15,8 @@ importers:
         specifier: ^5.1.1
         version: 5.1.1
       near-safe:
-        specifier: ^0.9.14
-        version: 0.9.14(typescript@5.8.3)
+        specifier: ^0.10.0
+        version: 0.10.0(typescript@5.8.3)
       next:
         specifier: ^15.3.4
         version: 15.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -58,8 +58,8 @@ importers:
         specifier: ^15.3.4
         version: 15.3.4(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)
       make-agent:
-        specifier: 0.3.1
-        version: 0.3.1(@types/node@24.0.3)(openapi-types@12.1.3)
+        specifier: 0.3.2
+        version: 0.3.2(@types/node@24.0.3)(openapi-types@12.1.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -69,8 +69,8 @@ packages:
   '@adraffy/ens-normalize@1.11.0':
     resolution: {integrity: sha512-/3DDPKHqqIqxUULp8yP4zODUY1i+2xvVWsv8A79xGWdCAG+8sb0hRh0Rk2QyOJUnnbyPUAZYcpBuRe3nS2OIUg==}
 
-  '@apidevtools/json-schema-ref-parser@11.7.2':
-    resolution: {integrity: sha512-4gY54eEGEstClvEkGnwVkTkrx0sqwemEFG5OSRRn3tD91XH0+Q8XIkYIfo7IwEWPpJZwILb9GUXeShtplRc/eA==}
+  '@apidevtools/json-schema-ref-parser@14.0.1':
+    resolution: {integrity: sha512-Oc96zvmxx1fqoSEdUmfmvvb59/KDOnUoJ7s2t7bISyAn0XEz57LCCw8k2Y4Pf3mwKaZLMciESALORLgfe2frCw==}
     engines: {node: '>= 16'}
 
   '@apidevtools/openapi-schemas@2.1.0':
@@ -80,8 +80,8 @@ packages:
   '@apidevtools/swagger-methods@3.0.2':
     resolution: {integrity: sha512-QAkD5kK2b1WfjDS/UQn/qQkbwF31uqRjPTrsCs5ZG9BQGAkjwvqGFjjPqAuzac/IYzpPtRzjCP1WrTuAIjMrXg==}
 
-  '@apidevtools/swagger-parser@10.1.1':
-    resolution: {integrity: sha512-u/kozRnsPO/x8QtKYJOqoGtC4kH6yg1lfYkB9Au0WhYB0FNLpyFusttQtvhlwjtG3rOwiRz4D8DnnXa8iEpIKA==}
+  '@apidevtools/swagger-parser@12.0.0':
+    resolution: {integrity: sha512-WLJIWcfOXrSKlZEM+yhA2Xzatgl488qr1FoOxixYmtWapBzwSC0gVGq4WObr4hHClMIiFFdOBdixNkvWqkWIWA==}
     peerDependencies:
       openapi-types: '>=7'
 
@@ -423,9 +423,6 @@ packages:
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
     engines: {node: '>=12'}
-
-  '@jsdevtools/ono@7.1.3':
-    resolution: {integrity: sha512-4JQNk+3mVzK3xh2rqd6RB4J46qUR19azEHBneZyTZM+c456qOrbbM/5xcR8huNCCcbVt7+UmizG6GuUvPvKUYg==}
 
   '@msgpack/msgpack@3.1.2':
     resolution: {integrity: sha512-JEW4DEtBzfe8HvUYecLU9e6+XJnKDlUAIve8FvPzF3Kzs6Xo/KuZkZJsDH0wJXl/qEZbeeE7edxDNY3kMs39hQ==}
@@ -1985,8 +1982,8 @@ packages:
   lunr@2.3.9:
     resolution: {integrity: sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==}
 
-  make-agent@0.3.1:
-    resolution: {integrity: sha512-14AGIytuA92JrQgEiQFsE1veZLjLkcXeKodiKHnY1YbLbGmVN4MjRJBbfDNjyA+JdQwULQ9Mct6ASZvt2HCt+g==}
+  make-agent@0.3.2:
+    resolution: {integrity: sha512-4RbPKAPhHZeN0xWgCZSzCrantn3FFeQVS/z0ng6u+DBtBpJM/He8HvqgGhNgwoUbMaWN3klzys90f7PwHh4q/g==}
     hasBin: true
 
   mark.js@8.11.1:
@@ -2131,16 +2128,8 @@ packages:
     resolution: {integrity: sha512-aRSqMC9bpAXJ1CmbgCU+tbR0kvzS4xya7oxib7T2RWfc4lkGdm5oOhIw7JY4xIL8HspoT/L8hcNJnbZnQknPRg==}
     engines: {node: '>=20.0.0'}
 
-  near-ca@0.9.7:
-    resolution: {integrity: sha512-niSlP1Z9hc89zNB+XW3vg+3RxanMbUmTDkwYwXlEDPR4ty50boqeCgzg/8Wmc5WqRRStfrhmURUvq4HQCTEOUg==}
-    engines: {node: '>=20.0.0'}
-
   near-safe@0.10.0:
     resolution: {integrity: sha512-lSr7e70U/CU93+wlfVDc6JUOHeDHaDan+ifrDff1MPMIFeZgeRP7nxhjCnZ4Kf2lQPhKxzoLXQWRSTGF/XH/Dg==}
-    engines: {node: '>=20.0.0'}
-
-  near-safe@0.9.14:
-    resolution: {integrity: sha512-Rd9UZGQsar2WEAcBbr5dpM5hg03k6hVk+M73QeUDBeEn2/kRszRjKKJxSqwVrRyEuFmyx4O068xRwqrIRPRNug==}
     engines: {node: '>=20.0.0'}
 
   negotiator@0.6.3:
@@ -3117,9 +3106,8 @@ snapshots:
 
   '@adraffy/ens-normalize@1.11.0': {}
 
-  '@apidevtools/json-schema-ref-parser@11.7.2':
+  '@apidevtools/json-schema-ref-parser@14.0.1':
     dependencies:
-      '@jsdevtools/ono': 7.1.3
       '@types/json-schema': 7.0.15
       js-yaml: 4.1.0
 
@@ -3127,12 +3115,11 @@ snapshots:
 
   '@apidevtools/swagger-methods@3.0.2': {}
 
-  '@apidevtools/swagger-parser@10.1.1(openapi-types@12.1.3)':
+  '@apidevtools/swagger-parser@12.0.0(openapi-types@12.1.3)':
     dependencies:
-      '@apidevtools/json-schema-ref-parser': 11.7.2
+      '@apidevtools/json-schema-ref-parser': 14.0.1
       '@apidevtools/openapi-schemas': 2.1.0
       '@apidevtools/swagger-methods': 3.0.2
-      '@jsdevtools/ono': 7.1.3
       ajv: 8.17.1
       ajv-draft-04: 1.0.0(ajv@8.17.1)
       call-me-maybe: 1.0.2
@@ -3468,8 +3455,6 @@ snapshots:
       strip-ansi-cjs: strip-ansi@6.0.1
       wrap-ansi: 8.1.0
       wrap-ansi-cjs: wrap-ansi@7.0.0
-
-  '@jsdevtools/ono@7.1.3': {}
 
   '@msgpack/msgpack@3.1.2': {}
 
@@ -5470,9 +5455,9 @@ snapshots:
 
   lunr@2.3.9: {}
 
-  make-agent@0.3.1(@types/node@24.0.3)(openapi-types@12.1.3):
+  make-agent@0.3.2(@types/node@24.0.3)(openapi-types@12.1.3):
     dependencies:
-      '@apidevtools/swagger-parser': 10.1.1(openapi-types@12.1.3)
+      '@apidevtools/swagger-parser': 12.0.0(openapi-types@12.1.3)
       ajv: 8.17.1
       ajv-draft-04: 1.0.0(ajv@8.17.1)
       borsh: 2.0.0
@@ -5633,77 +5618,12 @@ snapshots:
       - utf-8-validate
       - zod
 
-  near-ca@0.9.7(typescript@5.8.3):
-    dependencies:
-      '@reown/walletkit': 1.2.7(typescript@5.8.3)
-      elliptic: 6.6.1
-      js-sha3: 0.9.3
-      near-api-js: 5.1.1
-      viem: 2.31.3(typescript@5.8.3)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@deno/kv'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@upstash/redis'
-      - '@vercel/blob'
-      - '@vercel/kv'
-      - aws4fetch
-      - bufferutil
-      - db0
-      - encoding
-      - ioredis
-      - typescript
-      - uploadthing
-      - utf-8-validate
-      - zod
-
   near-safe@0.10.0(typescript@5.8.3):
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.23.1
       glob: 11.0.3
       near-api-js: 5.1.1
       near-ca: 0.10.0(typescript@5.8.3)
-      semver: 7.7.2
-      viem: 2.31.3(typescript@5.8.3)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@deno/kv'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@upstash/redis'
-      - '@vercel/blob'
-      - '@vercel/kv'
-      - aws4fetch
-      - bufferutil
-      - db0
-      - encoding
-      - ioredis
-      - typescript
-      - uploadthing
-      - utf-8-validate
-      - zod
-
-  near-safe@0.9.14(typescript@5.8.3):
-    dependencies:
-      '@safe-global/safe-gateway-typescript-sdk': 3.23.1
-      glob: 11.0.3
-      near-api-js: 5.1.1
-      near-ca: 0.9.7(typescript@5.8.3)
       semver: 7.7.2
       viem: 2.31.3(typescript@5.8.3)
     transitivePeerDependencies:
