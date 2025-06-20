@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-import { parseNearAmount } from 'near-api-js/lib/utils/format';
+import { parseUnits } from 'viem';
+
+export const parseNearAmount = (x: string | null) => x ? parseUnits(x.toString(), 24).toString(): null;
 
 export async function GET(request: Request) {
   try {
