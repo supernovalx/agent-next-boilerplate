@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import type { MetaTransaction } from "near-safe";
 import { signRequestFor } from '@bitte-ai/agent-sdk';
 import { parseEther } from 'viem';
 
@@ -17,14 +16,15 @@ export async function GET(request: Request) {
     }
 
     // Create EVM transaction object
-    const transaction: MetaTransaction = {
-      to: to,
-      value: parseEther(amount.toString()).toString(), // remove decimals
-      data: '0x',
-    };
     const signRequestTransaction = signRequestFor({
       chainId: 1,
-      metaTransactions: [transaction]
+      metaTransactions: [
+        {
+          to: to,
+          value: parseEther(amount.toString()).toString(), // remove decimals
+          data: '0x',
+        }
+      ]
     });
 
     return NextResponse.json({ evmSignRequest: signRequestTransaction }, { status: 200 });

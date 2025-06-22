@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { parseNearAmount } from 'near-api-js/lib/utils/format';
+import { parseUnits } from 'viem';
 
 export async function GET(request: Request) {
   try {
@@ -12,7 +12,7 @@ export async function GET(request: Request) {
     }
 
     // Convert amount to yoctoNEAR (1 NEAR = 10^24 yoctoNEAR)
-    const amountInYoctoNEAR = parseNearAmount(amount);
+    const amountInYoctoNEAR = parseUnits(amount, 24).toString();
 
     if (!amountInYoctoNEAR) {
       return NextResponse.json({ error: 'Invalid amount' }, { status: 400 });
