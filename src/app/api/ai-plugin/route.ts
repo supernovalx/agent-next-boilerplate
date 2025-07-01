@@ -29,7 +29,7 @@ export async function GET() {
                 image: "https://pbs.twimg.com/profile_images/1804597854725431296/fLn9-v6H_400x400.jpg",
                 // The repo url for your agent
                 repo: "https://github.com/BitteProtocol/snapshot-agent",
-                // The categories your agent supports ["deFi", "DAO", "NFT", "Social"]
+                // The categories your agent supports ["DeFi", "DAO", "NFT", "Social"]
                 categories: ["DAO"],
                 // The chains your agent supports 1 = mainnet, 8453 = base
                 chainIds: [1, 8453]
