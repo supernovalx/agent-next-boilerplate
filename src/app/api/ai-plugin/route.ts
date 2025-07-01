@@ -1,5 +1,13 @@
-import { ACCOUNT_ID, PLUGIN_URL } from "@/app/config";
+import { ACCOUNT_ID } from "@/app/config";
 import { NextResponse } from "next/server";
+import {
+  chainIdParam,
+  addressParam,
+  SignRequestResponse200,
+  AddressSchema,
+  MetaTransactionSchema,
+  SignRequestSchema,
+} from "@bitte-ai/agent-sdk";
 
 export async function GET() {
   const pluginData = {
@@ -11,13 +19,17 @@ export async function GET() {
     },
     servers: [
       {
-        url: PLUGIN_URL,
+        // Enter the base and open url of your agent here, make sure it is reachable
+        url: "https://snapshot-agent.vercel.app/",
       },
     ],
     "x-mb": {
+      // The account id of the user who created the agent found in .env file
       "account-id": ACCOUNT_ID,
+      // The email of the user who created the agent
+      email: "youremail@gmail.com",
       assistant: {
-        name: "Your Assistant",
+        name: "Your Agent",
         description:
           "An assistant that answers with blockchain information, tells the user's account id, interacts with twitter, creates transaction payloads for NEAR and EVM blockchains, and flips coins.",
         instructions:
@@ -27,6 +39,15 @@ export async function GET() {
           { type: "generate-evm-tx" },
           { type: "sign-message" },
         ],
+        // Thumbnail image for your agent
+        image:
+          "https://pbs.twimg.com/profile_images/1804597854725431296/fLn9-v6H_400x400.jpg",
+        // The repo url for your agent
+        repo: "https://github.com/BitteProtocol/snapshot-agent",
+        // The categories your agent supports ["DeFi", "DAO", "NFT", "Social"]
+        categories: ["DAO"],
+        // The chains your agent supports 1 = mainnet, 8453 = base
+        chainIds: [1, 8453],
       },
     },
     paths: {
@@ -445,6 +466,61 @@ export async function GET() {
             },
           },
         },
+      },
+      "/api/tools/eth-sign-request": {
+        get: {
+          summary: "returns ethereum signature requests",
+          description:
+            "Constructs requested signature requests (eth_sign, personal_sign, eth_signTypedData, eth_signTypedData_v4)",
+          operationId: "eth-sign",
+          parameters: [
+            { $ref: "#/components/parameters/chainId" },
+            { $ref: "#/components/parameters/evmAddress" },
+            { $ref: "#/components/parameters/method" },
+            { $ref: "#/components/parameters/message" },
+          ],
+          responses: {
+            "200": { $ref: "#/components/responses/SignRequestResponse200" },
+          },
+        },
+      },
+    },
+    components: {
+      parameters: {
+        evmAddress: { ...addressParam, name: "evmAddress" },
+        method: {
+          name: "method",
+          description: "The signing method to be used.",
+          in: "query",
+          required: true,
+            schema: {
+            type: "string",
+            enum: [
+              "eth_sign",
+              "personal_sign",
+              "eth_signTypedData",
+              "eth_signTypedData_v4"
+            ],
+          },
+          example: "eth_sign",
+        },
+        chainId: { ...chainIdParam, example: 11155111, required: false },
+        message: {
+          name: "message",
+          in: "query",
+          required: false,
+          description: "any text message",
+          schema: { type: "string" },
+          example: "Hello Bitte",
+        },
+      },
+      responses: {
+        SignRequestResponse200,
+      },
+      schemas: {
+        Address: AddressSchema,
+        MetaTransaction: MetaTransactionSchema,
+        SignRequest: SignRequestSchema,
       },
     },
   };
