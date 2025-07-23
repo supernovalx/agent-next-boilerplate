@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { signRequestFor } from '@bitte-ai/agent-sdk';
-import { parseEther } from 'viem';
+import { parseEther, isAddress, toHex } from 'viem';
 
 
 export async function GET(request: Request) {
@@ -15,13 +15,17 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: '"to" and "amount" are required parameters' }, { status: 400 });
     }
 
+    if (!isAddress(to)) {
+      return NextResponse.json({ error: 'Invalid "to" address' }, { status: 400 });
+    }
+
     // Create EVM transaction object
     const signRequestTransaction = signRequestFor({
       chainId: 1,
       metaTransactions: [
         {
-          to: to,
-          value: parseEther(amount.toString()).toString(), // remove decimals
+          to: to as `0x${string}`,
+          value: toHex(parseEther(amount.toString())),
           data: '0x',
         }
       ]

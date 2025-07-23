@@ -1,141 +1,306 @@
-# Bitte AI Agent NextJS Template
+# Bitte AI Agent NextJS Boilerplate
 
-This template provides a starting point for creating AI agents using the Bitte Protocol with Next.js. It includes pre-configured endpoints and tools that demonstrate common agent functionalities.
+A comprehensive template for creating AI agents using the Bitte Protocol with Next.js. This boilerplate demonstrates best practices for building blockchain-enabled AI agents with pre-configured tools and endpoints.
 
-## Features
+## 🌟 Features
 
-- 🤖 Pre-configured AI agent setup
-- 🛠️ Built-in tools and endpoints:
+- 🤖 **Complete AI Agent Setup** - Pre-configured agent manifest with OpenAPI specification
+- 🔗 **Blockchain Integration** - Built-in support for NEAR and EVM transactions
+- 🛠️ **Ready-to-Use Tools**:
   - Blockchain information retrieval
-  - NEAR transaction generation
-  - Reddit frontpage fetching
+  - NEAR & EVM transaction generation with wallet integration
+  - Ethereum message signing (eth_sign, personal_sign, typed data)
+  - User account & EVM address retrieval
   - Twitter share intent generation
   - Coin flip functionality
-- ⚡ Next.js 14 with App Router
-- 🎨 Tailwind CSS for styling
-- 📝 TypeScript support
-- 🔄 Hot reload development environment
+- ⚡ **Next.js 15** with App Router and TypeScript
+- 🎨 **Modern Development Stack** - Tailwind CSS, ESLint, TypeScript
+- 🚀 **One-Command Development** - Integrated with `make-agent` for seamless development
+- 📋 **Production Ready** - Built-in deployment scripts and Vercel integration
 
-## Quick Start
+## 🚀 Quick Start
 
-1. Clone this repository
-2. Configure environment variables (create a `.env` or `.env.local` file)
+### Prerequisites
 
-```bash
-# Get your API key from https://key.bitte.ai
-BITTE_API_KEY='your-api-key'
+- Node.js 18+ and pnpm
+- A Bitte wallet account
+- Git
 
-ACCOUNT_ID='your-account.near'
-```
-
-3. Install dependencies:
+### 1. Clone and Setup
 
 ```bash
+git clone https://github.com/BitteProtocol/agent-next-boilerplate.git
+cd agent-next-boilerplate
 pnpm install
 ```
 
-4. Start the development server:
+### 2. Environment Configuration
+
+Create a `.env.local` file:
+
+```bash
+# Required: Get your API key from https://key.bitte.ai
+BITTE_API_KEY='your-api-key'
+
+# Required: Your NEAR account ID (e.g., yourname.near)
+ACCOUNT_ID='your-account.near'
+
+# Optional: For local development
+NEXT_PUBLIC_HOST='localhost'
+PORT=3000
+```
+
+### 3. Start Development
 
 ```bash
 pnpm run dev
 ```
 
-This will:
+This command will:
+- Start your Next.js application on `http://localhost:3000`
+- Launch `make-agent` development mode
+- Prompt you to sign a message in your Bitte wallet to authenticate
+- Open your agent in the Bitte playground for testing
+- Enable hot reload for seamless development
 
-- Start your Next.js application
-- Launch make-agent
-- Prompt you to sign a message in Bitte wallet to create an API key
-- Launch your agent in the Bitte playground
-- Allow you to freely edit and develop your code in the playground environment
-
-5. Build the project locally:
+### 4. Build for Production
 
 ```bash
-pnpm run build:dev
+# Build without deployment
+pnpm run build
+
+# Build and deploy to production
+pnpm run build:deploy
 ```
 
-This will build the project and not trigger `make-agent deploy`
+## 🔧 Available Tools
 
-- using just `build` will trigger make-agent deploy and not work unless you provide your deployed plugin url using the `-u` flag.
+The boilerplate includes six fully functional tools that demonstrate different agent capabilities:
 
-## Available Tools
+### 1. **Blockchain Information** (`/api/tools/get-blockchains`)
+- **Purpose**: Returns a randomized list of 3 blockchain networks
+- **Implementation**: Static list with random selection
+- **Use Case**: Demonstrating simple data retrieval and randomization
 
-The template includes several pre-built tools:
+### 2. **NEAR Transaction Generator** (`/api/tools/create-near-transaction`)
+- **Purpose**: Creates NEAR transaction payloads for token transfers
+- **Parameters**: `receiverId` (NEAR account), `amount` (NEAR tokens)
+- **Implementation**: Converts amounts to yoctoNEAR (10^24) for precision
+- **Integration**: Works with Bitte's `generate-transaction` tool for wallet execution
 
-### 1. Blockchain Information
+### 3. **EVM Transaction Generator** (`/api/tools/create-evm-transaction`)
+- **Purpose**: Creates EVM transaction payloads for ETH transfers
+- **Parameters**: `to` (recipient address), `amount` (ETH amount)
+- **Implementation**: Uses viem for proper ETH amount parsing
+- **Integration**: Works with Bitte's `generate-evm-tx` tool for wallet execution
 
-- Endpoint: `/api/tools/get-blockchains`
-- Returns a randomized list of blockchain networks
+### 4. **Ethereum Message Signing** (`/api/tools/eth-sign-request`)
+- **Purpose**: Creates various Ethereum signature requests
+- **Methods**: `eth_sign`, `personal_sign`, `eth_signTypedData`, `eth_signTypedData_v4`
+- **Parameters**: `evmAddress`, `chainId`, `method`, `message`
+- **Implementation**: Supports both simple messages and typed data structures
 
-### 2. NEAR Transaction Generator
+### 5. **User Information** (`/api/tools/get-user`)
+- **Purpose**: Returns user's NEAR account ID and EVM address
+- **Context-Aware**: Automatically populated by Bitte's context system
+- **Use Case**: Accessing authenticated user information within agent flows
 
-- Endpoint: `/api/tools/create-near-transaction`
-- Creates NEAR transaction payloads for token transfers
+### 6. **Twitter Integration** (`/api/tools/twitter`)
+- **Purpose**: Generates Twitter share intent URLs
+- **Parameters**: `text` (required), `url`, `hashtags`, `via`
+- **Implementation**: Proper URL encoding for all parameters
+- **Use Case**: Social sharing and engagement features
 
-### 3. EVM Transaction Generator
+### 7. **Coin Flip** (`/api/tools/coinflip`)
+- **Purpose**: Simple randomization tool returning "heads" or "tails"
+- **Implementation**: Cryptographically random using Math.random()
+- **Use Case**: Demonstrating simple random functionality
 
-- Endpoint: `/api/tools/create-evm-transaction`
-- Creates EVM transaction payloads for native eth transfers
+## 🤖 Agent Configuration
 
-### 4. Twitter Share
+The agent is configured through the AI plugin manifest at `/api/ai-plugin/route.ts`. This endpoint returns an OpenAPI specification that defines:
 
-- Endpoint: `/api/tools/twitter`
-- Generates Twitter share intent URLs
+### Agent Metadata
+```typescript
+{
+  name: "Blockchain Assistant",
+  description: "An assistant that answers with blockchain information...",
+  instructions: "You create near and evm transactions, give blockchain information...",
+  tools: [
+    { type: "generate-transaction" },  // NEAR transactions
+    { type: "generate-evm-tx" },       // EVM transactions
+    { type: "sign-message" }           // Message signing
+  ],
+  categories: ["DeFi", "DAO", "Social"],
+  chainIds: [1, 8453]  // Ethereum Mainnet, Base
+}
+```
 
-### 5. Coin Flip
+### Important Configuration Notes
 
-- Endpoint: `/api/tools/coinflip`
-- Simple random coin flip generator
+1. **Tool Integration**: The agent uses Bitte's built-in tools (`generate-transaction`, `generate-evm-tx`, `sign-message`) to execute blockchain operations
+2. **Two-Step Process**: Your endpoints generate transaction payloads, then Bitte's tools execute them in the user's wallet
+3. **Chain Support**: Currently configured for Ethereum Mainnet (1) and Base (8453)
+4. **Deployment URL**: Automatically detected from Vercel or environment variables
 
-### 6. Get User
+## 📝 Environment Variables
 
-- Endpoint: `/api/tools/get-user`
-- Returns the user's account ID
+| Variable | Required | Description | Example |
+|----------|----------|-------------|---------|
+| `BITTE_API_KEY` | ✅ | Your Bitte API key from [key.bitte.ai](https://key.bitte.ai) | `bitte_key_...` |
+| `ACCOUNT_ID` | ✅ | Your blockchain account ID | `walletaddresss` |
+| `NEXT_PUBLIC_HOST` | ❌ | Development host | `localhost` |
+| `PORT` | ❌ | Development port | `3000` |
+| `NEXT_PUBLIC_BASE_URL` | ❌ | Base URL for assets | `https://yourdomain.com` |
 
-## AI Agent Configuration
+## 🛠️ Development Scripts
 
-The template includes a pre-configured AI agent manifest at `/.well-known/ai-plugin.json`. You can customize the agent's behavior by modifying the configuration in `/api/ai-plugins/route.ts`. This route generates and returns the manifest object.
+```bash
+# Development with hot reload and make-agent
+pnpm run dev
 
-## Deployment
+# Next.js development only (without make-agent)
+pnpm run dev:agent
+
+# Production build (local)
+pnpm run build
+
+# Build and deploy to production
+pnpm run build:deploy
+
+# Linting
+pnpm run lint
+```
+
+## 🚀 Deployment
+
+### Automatic Deployment (Recommended)
 
 1. Push your code to GitHub
-2. Deploy to Vercel or your preferred hosting platform
-3. Add your `BITTE_API_KEY` to the environment variables
-4. The `make-agent deploy` command will automatically run during build
+2. Connect your repository to [Vercel](https://vercel.com)
+3. Add environment variables in Vercel dashboard:
+   - `BITTE_API_KEY`
+   - `ACCOUNT_ID`
+4. Deploy! The build process automatically runs `make-agent deploy`
 
-## Making your own agent
-
-Whether you want to add a tool to this boilerplate or make your own standalone agent tool, here's you'll need:
-
-1. Make sure [`make-agent`](https://github.com/BitteProtocol/make-agent) is installed in your project:
+### Manual Deployment
 
 ```bash
-pnpm install --D make-agent
+# Build and deploy manually
+pnpm run build:deploy
 ```
 
-2. Set up a manifest following the OpenAPI specification that describes your agent and its paths.
-3. Have an api endpoint with the path `GET /api/ai-plugin` that returns your manifest
+## 🔨 Creating Custom Tools
 
-## Setting up the manifest
+To add your own tools to the agent:
 
-Follow the [OpenAPI Specification](https://swagger.io/specification/#schema-1) to add the following fields in the manifest object:
+### 1. Create the Tool Endpoint
 
-- `openapi`: The OpenAPI specification version that your manifest is following. Usually this is the latest version.
-- `info`: Object containing information about the agent, namely its 'title', 'description' and 'version'.
-- `servers`: Array of objects containing the urls for the deployed instances of the agent.
-- `paths`: Object containing all your agent's paths and their operations.
-- `"x-mb"`: Our custom field, containing the account id of the owner and an 'assistant' object with the agent's metadata, namely the tools it uses, and additional instructions to guide it.
+```typescript
+// src/app/api/tools/my-tool/route.ts
+import { NextResponse } from 'next/server';
 
-## Learn More
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const param = searchParams.get('param');
 
-- [Bitte Protocol Documentation](https://docs.bitte.ai)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [OpenAPI Specification](https://swagger.io/specification/)
+  // Your tool logic here
 
-## Contributing
+  return NextResponse.json({ result: 'success' });
+}
+```
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### 2. Add to Agent Manifest
 
-## License
+Update `/api/ai-plugin/route.ts`:
 
-MIT License
+```typescript
+paths: {
+  // ... existing paths
+  "/api/tools/my-tool": {
+    get: {
+      summary: "My custom tool",
+      description: "Description of what your tool does",
+      operationId: "my-tool",
+      parameters: [
+        {
+          name: "param",
+          in: "query",
+          required: true,
+          schema: { type: "string" }
+        }
+      ],
+      responses: {
+        "200": {
+          description: "Successful response",
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  result: { type: "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### 3. Update Agent Instructions
+
+Modify the `instructions` field in the agent configuration to include guidance on when and how to use your new tool.
+
+## 📖 Key Dependencies
+
+- **[@bitte-ai/agent-sdk](https://www.npmjs.com/package/@bitte-ai/agent-sdk)** - Core SDK for Bitte integration
+- **[make-agent](https://www.npmjs.com/package/make-agent)** - Development and deployment tooling
+- **[viem](https://viem.sh)** - TypeScript Ethereum library for transaction handling
+- **[Next.js 15](https://nextjs.org)** - React framework with App Router
+- **[vercel-url](https://www.npmjs.com/package/vercel-url)** - Automatic deployment URL detection
+
+## 🌐 Community & Support
+
+- 📚 [Bitte Protocol Documentation](https://docs.bitte.ai)
+- 💬 [Join our Telegram](https://t.me/bitteai) - Get help and connect with other developers
+- 🐛 [Report Issues](https://github.com/BitteProtocol/agent-next-boilerplate/issues)
+- 🔗 [Next.js Documentation](https://nextjs.org/docs)
+- 📋 [OpenAPI Specification](https://swagger.io/specification/)
+
+## 📋 Project Structure
+
+```
+agent-next-boilerplate/
+├── src/app/
+│   ├── api/
+│   │   ├── ai-plugin/route.ts      # Agent manifest endpoint
+│   │   └── tools/                  # Tool endpoints
+│   │       ├── get-blockchains/
+│   │       ├── create-near-transaction/
+│   │       ├── create-evm-transaction/
+│   │       ├── eth-sign-request/
+│   │       ├── get-user/
+│   │       ├── twitter/
+│   │       └── coinflip/
+│   ├── config.ts                   # Environment configuration
+│   ├── layout.tsx                  # Root layout
+│   └── page.tsx                    # Home page
+├── public/                         # Static assets
+├── package.json                    # Dependencies and scripts
+└── README.md                       # This file
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+Built with ❤️ using [Bitte Protocol](https://bitte.ai)
