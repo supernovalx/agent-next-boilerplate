@@ -31,9 +31,9 @@ export async function GET() {
       assistant: {
         name: "Blockchain Assistant",
         description:
-          "An assistant that answers with blockchain information, tells the user's account id, interacts with twitter, creates transaction payloads for EVM blockchains, flips coins, and executes JavaScript code.",
+          "An assistant that answers with blockchain information, tells the user's account id, interacts with twitter, creates transaction payloads for EVM blockchains, performs token swaps, flips coins, and executes JavaScript code.",
         instructions:
-          "You create evm transactions, give blockchain information, tell the user's account id, interact with twitter, flip coins, and execute JavaScript code. For blockchain transactions, first generate a transaction payload using the appropriate endpoint (/api/tools/create-evm-transaction), then explicitly use the 'generate-evm-tx' tool for EVM to actually send the transaction on the client side. For EVM transactions, make sure to provide the 'to' address (recipient) and 'amount' (in ETH) parameters when calling /api/tools/create-evm-transaction. Simply getting the payload from the endpoints is not enough - the corresponding tool must be used to execute the transaction. For JavaScript execution, use /api/tools/execute-js to run arbitrary JavaScript code - this is useful for calculations, data processing, algorithm testing, and educational purposes.",
+          "You create evm transactions, perform token swaps, give blockchain information, tell the user's account id, interact with twitter, flip coins, and execute JavaScript code. For blockchain transactions, first generate a transaction payload using the appropriate endpoint (/api/tools/create-evm-transaction for transfers or /api/tools/create-evm-swap for token swaps), then explicitly use the 'generate-evm-tx' tool for EVM to actually send the transaction on the client side. For EVM transactions, make sure to provide the 'to' address (recipient) and 'amount' (in ETH) parameters when calling /api/tools/create-evm-transaction. For token swaps, use /api/tools/create-evm-swap with destToken and amountWei parameters - this swaps from native ETH to the destination token on Base network only. Simply getting the payload from the endpoints is not enough - the corresponding tool must be used to execute the transaction. For JavaScript execution, use /api/tools/execute-js to run arbitrary JavaScript code - this is useful for calculations, data processing, algorithm testing, and educational purposes.",
         tools: [
           { type: "generate-transaction" },
           { type: "generate-evm-tx" },
@@ -385,6 +385,139 @@ export async function GET() {
                             description: "Sender address",
                           },
                         },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            "400": {
+              description: "Bad request",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      error: {
+                        type: "string",
+                        description: "Error message",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            "500": {
+              description: "Server error",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      error: {
+                        type: "string",
+                        description: "Error message",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      "/api/tools/create-evm-swap": {
+        get: {
+          operationId: "createEvmSwap",
+          summary: "Create EVM token swap",
+          description:
+            "Generate an EVM token swap transaction using the Zircuit trading engine. Swaps from native ETH to destination token on Base network.",
+          parameters: [
+            {
+              name: "destToken",
+              in: "query",
+              required: true,
+              schema: {
+                type: "string",
+              },
+              description: "The destination token contract address",
+            },
+            {
+              name: "amountWei",
+              in: "query",
+              required: true,
+              schema: {
+                type: "string",
+              },
+              description: "The amount of ETH to swap in wei (smallest unit)",
+            },
+            {
+              name: "userAccount",
+              in: "query",
+              required: false,
+              schema: {
+                type: "string",
+              },
+              description: "The user's wallet address",
+            },
+            {
+              name: "slippageBps",
+              in: "query",
+              required: false,
+              schema: {
+                type: "string",
+                default: "100",
+              },
+              description:
+                "Slippage tolerance in basis points (default: 100 = 1%)",
+            },
+          ],
+          responses: {
+            "200": {
+              description: "Successful response",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      success: {
+                        type: "boolean",
+                        description:
+                          "Whether the swap preparation was successful",
+                      },
+                      tradeId: {
+                        type: "string",
+                        description: "Unique trade identifier",
+                      },
+                      expectedAmount: {
+                        type: "string",
+                        description: "Expected amount of destination tokens",
+                      },
+                      minExpectedAmount: {
+                        type: "string",
+                        description:
+                          "Minimum expected amount considering slippage",
+                      },
+                      fees: {
+                        type: "object",
+                        description: "Fee breakdown for the trade",
+                      },
+                      approvalNeeded: {
+                        type: "boolean",
+                        description: "Whether token approval is required",
+                      },
+                      approvalTransaction: {
+                        type: "object",
+                        description: "Approval transaction if needed",
+                      },
+                      swapTransaction: {
+                        type: "object",
+                        description: "The swap transaction to execute",
+                      },
+                      evmSignRequest: {
+                        type: "object",
+                        description:
+                          "EVM transaction for compatibility with generate-evm-tx tool",
                       },
                     },
                   },
