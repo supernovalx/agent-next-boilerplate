@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "EVM Address Highlighter",
+  "version": "1.0",
+  "description": "Highlights EVM addresses on web pages and provides chat interface on hover",
+  "permissions": ["activeTab", "scripting", "tabs"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["chat-iframe.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

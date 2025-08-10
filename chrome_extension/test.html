@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EVM Address Highlighter Test Page</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      .example-section {
+        background: #f8f9fa;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+        border-left: 4px solid #007cba;
+      }
+      .address-example {
+        background: #fff;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+        border: 1px solid #e9ecef;
+      }
+      code {
+        background: #f1f3f4;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔍 EVM Address Highlighter Test Page</h1>
+
+    <p>
+      This page contains various EVM addresses to test the Chrome extension.
+      Install the extension and reload this page to see the highlighting in
+      action!
+    </p>
+
+    <div class="example-section">
+      <h2>💰 Popular Ethereum Addresses</h2>
+
+      <div class="address-example">
+        <h3>Vitalik Buterin's Address</h3>
+        <p>
+          One of the most well-known Ethereum addresses:
+          <strong>0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</strong>
+        </p>
+        <p>This address belongs to Ethereum's co-founder Vitalik Buterin.</p>
+      </div>
+
+      <div class="address-example">
+        <h3>Uniswap V3 Router</h3>
+        <p>
+          The Uniswap V3 Router contract is located at:
+          <code>0xE592427A0AEce92De3Edee1F18E0157C05861564</code>
+        </p>
+        <p>This is a popular DeFi protocol address.</p>
+      </div>
+
+      <div class="address-example">
+        <h3>USDC Contract</h3>
+        <p>
+          USD Coin (USDC) token contract:
+          0xA0b86a33E6441B4C15b1bb0Ac2e6E0a22b29e1f0
+        </p>
+        <p>A widely used stablecoin contract address.</p>
+      </div>
+    </div>
+
+    <div class="example-section">
+      <h2>🏦 DeFi Protocol Addresses</h2>
+
+      <div class="address-example">
+        <h3>Aave Lending Pool</h3>
+        <p>
+          Aave's main lending pool: 0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9
+        </p>
+      </div>
+
+      <div class="address-example">
+        <h3>Compound Governance</h3>
+        <p>
+          Compound's governance contract can be found at
+          0xc00e94Cb662C3520282E6f5717214004A7f26888
+        </p>
+      </div>
+    </div>
+
+    <div class="example-section">
+      <h2>🎨 NFT Collection Addresses</h2>
+
+      <div class="address-example">
+        <h3>CryptoPunks</h3>
+        <p>
+          The original CryptoPunks collection:
+          0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB
+        </p>
+      </div>
+
+      <div class="address-example">
+        <h3>Bored Ape Yacht Club</h3>
+        <p>BAYC NFT contract: 0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D</p>
+      </div>
+    </div>
+
+    <div class="example-section">
+      <h2>🔗 Bridge and Cross-Chain Addresses</h2>
+
+      <div class="address-example">
+        <h3>Polygon Bridge</h3>
+        <p>
+          Polygon's bridge contract: 0x40ec5B33f54e0E8A33A975908C5BA1c14e5BbbDf
+        </p>
+      </div>
+
+      <div class="address-example">
+        <h3>Arbitrum Bridge</h3>
+        <p>Arbitrum One bridge: 0x8315177aB297bA92A06054cE80a67Ed4DBd7ed3a</p>
+      </div>
+    </div>
+
+    <h2>📋 Test Instructions</h2>
+    <ol>
+      <li>Install the Chrome extension using the instructions in the README</li>
+      <li>Reload this page</li>
+      <li>
+        You should see all the EVM addresses highlighted with a yellow
+        background
+      </li>
+      <li>
+        Hover over any highlighted address to see the popup with action buttons
+      </li>
+      <li>
+        Click "🚀 Analyze Portfolio" to copy the portfolio prompt and open chat
+        in new tab
+      </li>
+      <li>Click "📋 Copy Address" to copy the address to your clipboard</li>
+    </ol>
+
+    <h2>🧪 Edge Cases</h2>
+    <p>Here are some edge cases to test:</p>
+    <ul>
+      <li>
+        Multiple addresses in one line:
+        0x1234567890123456789012345678901234567890 and
+        0xabcdefabcdefabcdefabcdefabcdefabcdefabcd
+      </li>
+      <li>
+        Address in parentheses: (0x9876543210987654321098765432109876543210)
+      </li>
+      <li>
+        Address with punctuation: Check out this address:
+        0x1111111111111111111111111111111111111111!
+      </li>
+      <li>Lowercase address: 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+      <li>Mixed case address: 0xAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCd</li>
+    </ul>
+
+    <footer
+      style="
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #e9ecef;
+        color: #6c757d;
+      "
+    >
+      <p>
+        💡 <strong>Tip:</strong> This extension works on any website! Try
+        visiting Etherscan, OpenSea, or any other web3 site to see it in action.
+      </p>
+    </footer>
+  </body>
+</html>

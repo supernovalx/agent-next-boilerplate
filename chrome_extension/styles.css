@@ -1,0 +1,198 @@
+/* EVM Address Highlighter Styles */
+
+/* Highlighted EVM addresses */
+.evm-address-highlight {
+  background-color: #1e40af;
+  color: white !important;
+  border: 1px solid #1d4ed8;
+  border-radius: 3px;
+  padding: 1px 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: monospace;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.evm-address-highlight:hover {
+  background-color: #1d4ed8;
+  border-color: #2563eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Chat popup that appears on hover */
+.evm-chat-popup {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  min-width: 250px;
+  max-width: 350px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  z-index: 10000;
+}
+
+.evm-chat-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 10px 12px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.evm-address-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 12px;
+}
+
+.evm-address-value {
+  font-family: monospace;
+  background: #e9ecef;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+  font-size: 11px;
+  color: #495057;
+}
+
+.evm-chat-close {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 0;
+  margin-left: 8px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.evm-chat-close:hover {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.evm-chat-actions {
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.evm-chat-button,
+.evm-copy-button {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #007cba;
+  border-radius: 6px;
+  background: #007cba;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.evm-copy-button {
+  background: #6c757d;
+  border-color: #6c757d;
+}
+
+.evm-chat-button:hover {
+  background: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.evm-copy-button:hover {
+  background: #5a6268;
+  border-color: #5a6268;
+  transform: translateY(-1px);
+}
+
+
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .evm-chat-popup {
+    max-width: 280px;
+    font-size: 12px;
+  }
+  
+  .evm-chat-actions {
+    flex-direction: column;
+  }
+  
+  .evm-chat-button,
+  .evm-copy-button {
+    width: 100%;
+  }
+}
+
+/* Animation for popup appearance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.evm-chat-popup {
+  animation: fadeInUp 0.2s ease-out;
+}
+
+
+
+/* Notification animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Copy notification styles */
+.evm-copy-notification {
+  position: fixed !important;
+  z-index: 2147483648 !important;
+}
+
+/* Ensure popup stays above everything */
+.evm-chat-popup {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+}
