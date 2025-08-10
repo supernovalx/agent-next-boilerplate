@@ -232,14 +232,14 @@ export async function GET(request: Request) {
 
     return NextResponse.json(
       {
-        success: true,
-        tradeId: estimate.tradeId,
-        expectedAmount: estimate.expectedAmount,
-        minExpectedAmount: estimate.minExpectedAmount,
-        fees: estimate.fees,
-        approvalNeeded,
-        approvalTransaction: approvalTx,
-        swapTransaction,
+        // success: true,
+        // tradeId: estimate.tradeId,
+        // expectedAmount: estimate.expectedAmount,
+        // minExpectedAmount: estimate.minExpectedAmount,
+        // fees: estimate.fees,
+        // approvalNeeded,
+        // approvalTransaction: approvalTx,
+        // swapTransaction,
         evmSignRequest: swapTransaction, // For compatibility with existing tools
       },
       { status: 200 }
