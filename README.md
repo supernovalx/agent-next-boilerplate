@@ -1,23 +1,69 @@
-# ETHVN2025 Portfolio Agent
+# 🤖 MirrorAgent - ETH Vietnam 2025
 
-A comprehensive blockchain assistant agent built with the Bitte Protocol, Zircuit and Next.js. This agent specializes in EVM blockchain operations, token swaps, JavaScript execution, and portfolio management.
+**AI-Powered Cross-Chain Portfolio Copying for DeFi**
 
-## 🌟 Features
+MirrorAgent brings the proven $10B+ daily copy trading market from CEX platforms to DeFi with intelligent agents and seamless cross-chain execution. Built for **Zircuit Track** and **Bitte Open Agents** at ETH Vietnam 2025.
 
-- 🤖 **Blockchain Assistant** - AI agent focused on DeFi, DAO, and Social blockchain operations
-- 🔗 **EVM Integration** - Built-in support for EVM transactions on Base network
-- 🛠️ **Ready-to-Use Tools**:
-  - EVM transaction generation for ETH transfers
-  - Token swaps using Zircuit trading engine (ETH to any token on Base)
-  - JavaScript code execution for computational tasks
-  - Portfolio copying functionality with automatic calculation
-  - Ethereum message signing (eth_sign, personal_sign, typed data)
-  - User account & EVM address retrieval
-  - Legacy tools: NEAR transactions, Twitter sharing, coin flip, blockchain info
+## 🎯 The Problem
+
+| **CEX Success** ✅ | **DeFi Opportunity** 📈 |
+|-------------------|-------------------------|
+| $10B+ daily copy trading volume | Limited user-friendly solutions |
+| 45M+ active copy traders | Complex multi-step processes |
+| 8,500+ lead traders (OKX) | Cross-chain friction |
+| Mature profit-sharing models | Discovery & analysis barriers |
+
+## 🚀 The Solution
+
+**MirrorAgent** - An AI agent that makes copying DeFi portfolios as simple as talking to ChatGPT.
+
+### Core Innovation
+- **From Discovery to Execution**: Go from finding a portfolio on Farcaster to copying it in under 2 minutes
+- **AI-Driven Analysis**: Intelligent portfolio breakdown and optimization strategies
+- **Cross-Chain Execution**: Powered by Zircuit GUD Trading Engine for best quotes
+- **Fee Sharing**: Built-in mechanism to share profits with original portfolio holders
+
+## 🛠️ Architecture
+
+### AI Agent Core
+**Powered by Bitte Protocol + Zircuit GUD Trading Engine**
+
+### Three Key Tools:
+1. **📊 Get Portfolio** - Bitte built-in tool to analyze any EVM address portfolio composition
+2. **⚡ Execute JS** - Custom tool for complex calculations, allocation strategies, and portfolio optimization
+3. **🔄 Swap** - Zircuit GUD Trading Engine for best quotes and cross-chain execution with fee collection
+
+### Two Access Methods:
+1. **🌐 Chrome Extension** - Hover any EVM address → Click "Analyze with Agent" → Instant portfolio chat
+2. **🔗 MCP Protocol** - ChatGPT, Claude, and other AI platforms → Agent-to-Agent communication
+
+## 🎬 User Journey: A Day in the Life of a DeFi Degenerate
+
+```
+📱 Discovery          👆 One-Click Analysis    💬 Nerd Out with AI      🚀 Liftoff
+──────────────────────────────────────────────────────────────────────────────────
+Scrolling Farcaster,  →  Hover, click         →  "Agent, show me      →  Agent fires up 
+a wild degen KOL          "Analyze with           the goods." It          Zircuit, finds
+appears! Their            MirrorAgent".           breaks down their       best swaps, and
+wallet is fire.           Boom. Instant chat      crazy returns.          executes. Portfolio
+I need that alpha.        with an AI that         "Okay, ape me in,       is now legendary.
+                          gets it.                but with a twist."      To the moon! 🚀
+```
+
+**Result**: From Farcaster Feed to Copied Trades in Under 2 Minutes
+
+## 🌟 Key Features
+
+- 🤖 **Intelligent Portfolio Analysis** - AI-powered breakdown of any EVM portfolio
+- 🔗 **Cross-Chain Execution** - Seamless swaps across multiple networks via Zircuit
+- 🛠️ **Advanced Tools**:
+  - Portfolio composition analysis and optimization
+  - Custom allocation strategies with JavaScript execution
+  - Automated token swapping with slippage protection
+  - Fee collection and profit-sharing mechanisms
 - ⚡ **Next.js 15** with App Router and TypeScript
 - 🎨 **Modern Development Stack** - Tailwind CSS, ESLint, TypeScript
-- 🚀 **One-Command Development** - Integrated with `make-agent` for seamless development
-- 📋 **Production Ready** - Built-in deployment scripts and Vercel integration
+- 🚀 **Production Ready** - Built-in deployment scripts and Vercel integration
 
 ## 🚀 Quick Start
 
@@ -132,37 +178,34 @@ The agent includes nine functional tools for blockchain operations, computation,
 - **Purpose**: Simple randomization tool returning "heads" or "tails"
 - **Implementation**: Cryptographically random using Math.random()
 
-## 🤖 Agent Configuration
+## 🤖 MirrorAgent Configuration
 
-The agent is configured through the AI plugin manifest at `/api/ai-plugin/route.ts`. This endpoint returns an OpenAPI specification that defines:
+MirrorAgent is configured through the AI plugin manifest at `/api/ai-plugin/route.ts` as a specialized portfolio copying assistant:
 
 ### Agent Metadata
 ```typescript
 {
-  name: "Blockchain Assistant",
-  description: "An assistant that tells the user's account id, creates transaction payloads for EVM blockchains, performs token swaps, and executes JavaScript code.",
-  instructions: "You create evm transactions, perform token swaps, tell the user's account id, and execute JavaScript code. For blockchain transactions, first generate a transaction payload using the appropriate endpoint (/api/tools/create-evm-transaction for transfers or /api/tools/create-evm-swap for token swaps), then explicitly use the 'generate-evm-tx' tool for EVM to actually send the transaction on the client side. You can help the user copy portfolio of other users by using the get-portfolio tool, then use execute-js to calculate the amount of tokens (in wei) that need to be swap for each token in the target portfolio, then create-evm-swap and use generate-evm-tx to actually send the transaction on the client side.",
+  name: "MirrorAgent - Portfolio Copying Assistant",
+  description: "AI agent that analyzes and copies DeFi portfolios with intelligent allocation strategies and cross-chain execution via Zircuit.",
+  instructions: "You are MirrorAgent, specializing in DeFi portfolio analysis and copying. Your core workflow: 1) Use get-portfolio to analyze target portfolios, 2) Use execute-js for allocation calculations and optimization strategies, 3) Use create-evm-swap with Zircuit for cross-chain execution, 4) Use generate-evm-tx to execute trades. You help users discover alpha, analyze successful portfolios, and copy them with intelligent modifications based on their risk tolerance and capital.",
   tools: [
-    { type: "generate-transaction" },  // NEAR transactions (legacy)
-    { type: "generate-evm-tx" },       // EVM transactions  
-    { type: "sign-message" },          // Message signing
-    { type: "get-portfolio" }          // Portfolio retrieval
+    { type: "generate-evm-tx" },       // Cross-chain transaction execution
+    { type: "sign-message" },          // Message signing for verification
+    { type: "get-portfolio" }          // Portfolio composition analysis
   ],
-  categories: ["DeFi", "DAO", "Social"],
-  chainIds: [8453]  // Base network only
+  categories: ["DeFi", "Copy Trading", "Portfolio Management"],
+  chainIds: [8453, 1, 137, 42161]     // Base, Ethereum, Polygon, Arbitrum
 }
 ```
 
-### Important Configuration Notes
+### Core Capabilities
 
-1. **Primary Focus**: The agent specializes in EVM operations on Base network (Chain ID 8453)
-2. **Tool Integration**: Uses Bitte's built-in tools to execute blockchain operations after generating payloads
-3. **Two-Step Process**: 
-   - Generate transaction payloads via API endpoints
-   - Execute transactions using Bitte's tools (`generate-evm-tx`, `generate-transaction`, `sign-message`)
-4. **Portfolio Copying**: Can retrieve portfolios via `get-portfolio` tool and calculate swap amounts using JavaScript execution
-5. **Computational Support**: JavaScript execution enables complex calculations for DeFi operations
-6. **Deployment URL**: Automatically detected from Vercel or environment variables
+1. **Portfolio Discovery & Analysis**: Analyze any EVM address portfolio composition and performance
+2. **Intelligent Allocation**: Calculate optimal token distributions based on user preferences and risk tolerance
+3. **Cross-Chain Execution**: Execute trades across multiple networks using Zircuit GUD Trading Engine
+4. **Fee Management**: Built-in fee collection mechanism for profit-sharing with original portfolio creators
+5. **Risk Management**: Automatic slippage protection and portfolio optimization strategies
+6. **Real-Time Execution**: From analysis to trade execution in under 2 minutes
 
 ## 📝 Environment Variables
 
@@ -283,13 +326,32 @@ Modify the `instructions` field in the agent configuration to include guidance o
 - **[Next.js 15](https://nextjs.org)** - React framework with App Router
 - **[vercel-url](https://www.npmjs.com/package/vercel-url)** - Automatic deployment URL detection
 
+## 🏆 ETH Vietnam 2025 Hackathon
+
+### Tracks
+- **🔥 Zircuit Track**: Leveraging Zircuit GUD Trading Engine for optimal cross-chain swaps and fee collection
+- **🤖 Bitte Open Agents**: Built on Bitte Protocol for seamless AI agent integration and MCP compatibility
+
+### Innovation Highlights
+- **Market Opportunity**: Tapping into the $10B+ daily copy trading market for DeFi
+- **User Experience**: From discovery on social platforms to trade execution in under 2 minutes  
+- **Technical Innovation**: AI-driven portfolio analysis with cross-chain execution
+- **Economic Model**: Built-in profit-sharing mechanism with original portfolio creators
+
+### Demo Scenario
+1. **Discovery**: User finds a successful trader on Farcaster/Twitter
+2. **Analysis**: One-click portfolio analysis via Chrome extension
+3. **Optimization**: AI agent calculates personalized allocation strategy
+4. **Execution**: Cross-chain swaps executed via Zircuit with optimal pricing
+5. **Profit Sharing**: Fees automatically shared with original portfolio creator
+
 ## 🌐 Community & Support
 
 - 📚 [Bitte Protocol Documentation](https://docs.bitte.ai)
-- 💬 [Join our Telegram](https://t.me/bitteai) - Get help and connect with other developers
+- 🔗 [Zircuit Documentation](https://docs.zircuit.com)
+- 💬 [Join Bitte Telegram](https://t.me/bitteai) - Get help and connect with other developers
 - 🐛 [Report Issues](https://github.com/BitteProtocol/agent-next-boilerplate/issues)
-- 🔗 [Next.js Documentation](https://nextjs.org/docs)
-- 📋 [OpenAPI Specification](https://swagger.io/specification/)
+- 📋 [Next.js Documentation](https://nextjs.org/docs)
 
 ## 📋 Project Structure
 
@@ -326,4 +388,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-Built with ❤️ using [Bitte Protocol](https://bitte.ai)
+**🤖 MirrorAgent** - Built with ❤️ for ETH Vietnam 2025  
+Powered by [Bitte Protocol](https://bitte.ai) × [Zircuit](https://zircuit.com)
+
+*From Farcaster Feed to Copied Trades in Under 2 Minutes* 🚀
