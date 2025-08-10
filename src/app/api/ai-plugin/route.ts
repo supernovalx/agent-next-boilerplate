@@ -13,23 +13,23 @@ export async function GET() {
   const pluginData = {
     openapi: "3.0.0",
     info: {
-      title: "Boilerplate Agent",
-      description: "API for the boilerplate",
+      title: "ETHVN2025 Portfolio Agent",
+      description: "API for the ETHVN2025 Portfolio Agent",
       version: "1.0.0",
     },
     servers: [
       {
         // Enter the base and open url of your agent here, make sure it is reachable
-        url: "https://agent-next-boilerplate.vercel.app/",
+        url: "https://ethvn2025-portfolio-agent.vercel.app/",
       },
     ],
     "x-mb": {
       // The account id of the user who created the agent found in .env file
       "account-id": ACCOUNT_ID,
       // The email of the user who created the agent
-      email: "youremail@gmail.com",
+      email: "hoanganhgo9@gmail.com",
       assistant: {
-        name: "Blockchain Assistant",
+        name: "ETHVN2025 Portfolio Assistant",
         description:
           "An assistant that tells the user's account id, creates transaction payloads for EVM blockchains, performs token swaps, and executes JavaScript code.",
         instructions:
@@ -45,7 +45,7 @@ export async function GET() {
           process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
         }/bitte.svg`,
         // The repo url for your agent https://github.com/your-username/your-agent-repo
-        repo: "https://github.com/BitteProtocol/agent-next-boilerplate",
+        repo: "https://github.com/supernovalx/ethvn2025-portfolio-agent",
         // The categories your agent supports ["DeFi", "DAO", "NFT", "Social"]
         categories: ["DeFi", "DAO", "Social"],
         // The chains your agent supports 1 = mainnet, 8453 = base

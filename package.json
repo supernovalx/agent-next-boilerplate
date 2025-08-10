@@ -1,5 +1,5 @@
 {
-  "name": "agent-next-boilerplate",
+  "name": "ethvn2025-portfolio-agent",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "dev2": "make-agent dev --port 3000",
     "dev:agent": "next dev",
     "build": "next build",
-    "build:deploy": "next build && make-agent deploy -u https://agent-next-boilerplate.vercel.app",
+    "build:deploy": "next build && make-agent deploy -u https://ethvn2025-portfolio-agent.vercel.app/",
     "start": "next start",
     "lint": "next lint"
   },
