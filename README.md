@@ -1,18 +1,19 @@
-# Bitte AI Agent NextJS Boilerplate
+# ETHVN2025 Portfolio Agent
 
-A comprehensive template for creating AI agents using the Bitte Protocol with Next.js. This boilerplate demonstrates best practices for building blockchain-enabled AI agents with pre-configured tools and endpoints.
+A comprehensive blockchain assistant agent built with the Bitte Protocol, Zircuit and Next.js. This agent specializes in EVM blockchain operations, token swaps, JavaScript execution, and portfolio management.
 
 ## 🌟 Features
 
-- 🤖 **Complete AI Agent Setup** - Pre-configured agent manifest with OpenAPI specification
-- 🔗 **Blockchain Integration** - Built-in support for NEAR and EVM transactions
+- 🤖 **Blockchain Assistant** - AI agent focused on DeFi, DAO, and Social blockchain operations
+- 🔗 **EVM Integration** - Built-in support for EVM transactions on Base network
 - 🛠️ **Ready-to-Use Tools**:
-  - Blockchain information retrieval
-  - NEAR & EVM transaction generation with wallet integration
+  - EVM transaction generation for ETH transfers
+  - Token swaps using Zircuit trading engine (ETH to any token on Base)
+  - JavaScript code execution for computational tasks
+  - Portfolio copying functionality with automatic calculation
   - Ethereum message signing (eth_sign, personal_sign, typed data)
   - User account & EVM address retrieval
-  - Twitter share intent generation
-  - Coin flip functionality
+  - Legacy tools: NEAR transactions, Twitter sharing, coin flip, blockchain info
 - ⚡ **Next.js 15** with App Router and TypeScript
 - 🎨 **Modern Development Stack** - Tailwind CSS, ESLint, TypeScript
 - 🚀 **One-Command Development** - Integrated with `make-agent` for seamless development
@@ -75,46 +76,61 @@ pnpm run build:deploy
 
 ## 🔧 Available Tools
 
-The boilerplate includes six fully functional tools that demonstrate different agent capabilities:
+The agent includes nine functional tools for blockchain operations, computation, and utility functions:
 
-### 1. **Blockchain Information** (`/api/tools/get-blockchains`)
-- **Purpose**: Returns a randomized list of 3 blockchain networks
-- **Implementation**: Static list with random selection
-- **Use Case**: Demonstrating simple data retrieval and randomization
+### Core Tools
 
-### 2. **NEAR Transaction Generator** (`/api/tools/create-near-transaction`)
-- **Purpose**: Creates NEAR transaction payloads for token transfers
-- **Parameters**: `receiverId` (NEAR account), `amount` (NEAR tokens)
-- **Implementation**: Converts amounts to yoctoNEAR (10^24) for precision
-- **Integration**: Works with Bitte's `generate-transaction` tool for wallet execution
-
-### 3. **EVM Transaction Generator** (`/api/tools/create-evm-transaction`)
-- **Purpose**: Creates EVM transaction payloads for ETH transfers
+### 1. **EVM Transaction Generator** (`/api/tools/create-evm-transaction`)
+- **Purpose**: Creates EVM transaction payloads for ETH transfers on Base network
 - **Parameters**: `to` (recipient address), `amount` (ETH amount)
 - **Implementation**: Uses viem for proper ETH amount parsing
 - **Integration**: Works with Bitte's `generate-evm-tx` tool for wallet execution
 
-### 4. **Ethereum Message Signing** (`/api/tools/eth-sign-request`)
+### 2. **EVM Token Swap** (`/api/tools/create-evm-swap`)
+- **Purpose**: Creates token swap transactions using Zircuit trading engine
+- **Parameters**: `destToken` (token address), `amountWei` (ETH amount in wei), `slippageBps` (slippage tolerance)
+- **Implementation**: Swaps from native ETH to any destination token on Base network
+- **Features**: Automatic slippage protection, trade estimation, no approval needed for ETH
+- **Integration**: Works with Bitte's `generate-evm-tx` tool for execution
+
+### 3. **JavaScript Executor** (`/api/tools/execute-js`)
+- **Purpose**: Executes arbitrary JavaScript code for computational tasks
+- **Methods**: Both GET and POST support
+- **Features**: Console.log capture, error handling, result formatting
+- **Use Case**: Portfolio calculations, mathematical operations, data processing
+- **Security**: Sandboxed execution environment
+
+### 4. **User Information** (`/api/tools/get-user`)
+- **Purpose**: Returns user's account ID and EVM address
+- **Context-Aware**: Automatically populated by Bitte's context system
+- **Use Case**: Accessing authenticated user information for transactions
+
+### 5. **Ethereum Message Signing** (`/api/tools/eth-sign-request`)
 - **Purpose**: Creates various Ethereum signature requests
 - **Methods**: `eth_sign`, `personal_sign`, `eth_signTypedData`, `eth_signTypedData_v4`
 - **Parameters**: `evmAddress`, `chainId`, `method`, `message`
 - **Implementation**: Supports both simple messages and typed data structures
 
-### 5. **User Information** (`/api/tools/get-user`)
-- **Purpose**: Returns user's NEAR account ID and EVM address
-- **Context-Aware**: Automatically populated by Bitte's context system
-- **Use Case**: Accessing authenticated user information within agent flows
+### Legacy Tools
 
-### 6. **Twitter Integration** (`/api/tools/twitter`)
+### 6. **NEAR Transaction Generator** (`/api/tools/create-near-transaction`)
+- **Purpose**: Creates NEAR transaction payloads for token transfers
+- **Parameters**: `receiverId` (NEAR account), `amount` (NEAR tokens)
+- **Implementation**: Converts amounts to yoctoNEAR (10^24) for precision
+
+### 7. **Blockchain Information** (`/api/tools/get-blockchains`)
+- **Purpose**: Returns a randomized list of 3 blockchain networks
+- **Implementation**: Static list with random selection
+- **Use Case**: General blockchain information retrieval
+
+### 8. **Twitter Integration** (`/api/tools/twitter`)
 - **Purpose**: Generates Twitter share intent URLs
 - **Parameters**: `text` (required), `url`, `hashtags`, `via`
 - **Implementation**: Proper URL encoding for all parameters
-- **Use Case**: Social sharing and engagement features
 
-### 7. **Coin Flip** (`/api/tools/coinflip`)
+### 9. **Coin Flip** (`/api/tools/coinflip`)
 - **Purpose**: Simple randomization tool returning "heads" or "tails"
 - **Implementation**: Cryptographically random using Math.random()
-- **Use Case**: Demonstrating simple random functionality
 
 ## 🤖 Agent Configuration
 
@@ -124,31 +140,36 @@ The agent is configured through the AI plugin manifest at `/api/ai-plugin/route.
 ```typescript
 {
   name: "Blockchain Assistant",
-  description: "An assistant that answers with blockchain information...",
-  instructions: "You create near and evm transactions, give blockchain information...",
+  description: "An assistant that tells the user's account id, creates transaction payloads for EVM blockchains, performs token swaps, and executes JavaScript code.",
+  instructions: "You create evm transactions, perform token swaps, tell the user's account id, and execute JavaScript code. For blockchain transactions, first generate a transaction payload using the appropriate endpoint (/api/tools/create-evm-transaction for transfers or /api/tools/create-evm-swap for token swaps), then explicitly use the 'generate-evm-tx' tool for EVM to actually send the transaction on the client side. You can help the user copy portfolio of other users by using the get-portfolio tool, then use execute-js to calculate the amount of tokens (in wei) that need to be swap for each token in the target portfolio, then create-evm-swap and use generate-evm-tx to actually send the transaction on the client side.",
   tools: [
-    { type: "generate-transaction" },  // NEAR transactions
-    { type: "generate-evm-tx" },       // EVM transactions
-    { type: "sign-message" }           // Message signing
+    { type: "generate-transaction" },  // NEAR transactions (legacy)
+    { type: "generate-evm-tx" },       // EVM transactions  
+    { type: "sign-message" },          // Message signing
+    { type: "get-portfolio" }          // Portfolio retrieval
   ],
   categories: ["DeFi", "DAO", "Social"],
-  chainIds: [1, 8453]  // Ethereum Mainnet, Base
+  chainIds: [8453]  // Base network only
 }
 ```
 
 ### Important Configuration Notes
 
-1. **Tool Integration**: The agent uses Bitte's built-in tools (`generate-transaction`, `generate-evm-tx`, `sign-message`) to execute blockchain operations
-2. **Two-Step Process**: Your endpoints generate transaction payloads, then Bitte's tools execute them in the user's wallet
-3. **Chain Support**: Currently configured for Ethereum Mainnet (1) and Base (8453)
-4. **Deployment URL**: Automatically detected from Vercel or environment variables
+1. **Primary Focus**: The agent specializes in EVM operations on Base network (Chain ID 8453)
+2. **Tool Integration**: Uses Bitte's built-in tools to execute blockchain operations after generating payloads
+3. **Two-Step Process**: 
+   - Generate transaction payloads via API endpoints
+   - Execute transactions using Bitte's tools (`generate-evm-tx`, `generate-transaction`, `sign-message`)
+4. **Portfolio Copying**: Can retrieve portfolios via `get-portfolio` tool and calculate swap amounts using JavaScript execution
+5. **Computational Support**: JavaScript execution enables complex calculations for DeFi operations
+6. **Deployment URL**: Automatically detected from Vercel or environment variables
 
 ## 📝 Environment Variables
 
 | Variable | Required | Description | Example |
 |----------|----------|-------------|---------|
 | `BITTE_API_KEY` | ✅ | Your Bitte API key from [key.bitte.ai](https://key.bitte.ai) | `bitte_key_...` |
-| `ACCOUNT_ID` | ✅ | Your blockchain account ID | `walletaddresss` |
+| `ACCOUNT_ID` | ✅ | Your blockchain account ID | `yourname.near` |
 | `NEXT_PUBLIC_HOST` | ❌ | Development host | `localhost` |
 | `PORT` | ❌ | Development port | `3000` |
 | `NEXT_PUBLIC_BASE_URL` | ❌ | Base URL for assets | `https://yourdomain.com` |
@@ -278,13 +299,15 @@ agent-next-boilerplate/
 │   ├── api/
 │   │   ├── ai-plugin/route.ts      # Agent manifest endpoint
 │   │   └── tools/                  # Tool endpoints
-│   │       ├── get-blockchains/
-│   │       ├── create-near-transaction/
-│   │       ├── create-evm-transaction/
-│   │       ├── eth-sign-request/
-│   │       ├── get-user/
-│   │       ├── twitter/
-│   │       └── coinflip/
+│   │       ├── create-evm-transaction/    # Core: ETH transfers
+│   │       ├── create-evm-swap/          # Core: Token swaps
+│   │       ├── execute-js/               # Core: JavaScript execution
+│   │       ├── get-user/                 # Core: User information
+│   │       ├── eth-sign-request/         # Core: Message signing
+│   │       ├── create-near-transaction/  # Legacy: NEAR transactions
+│   │       ├── get-blockchains/          # Legacy: Blockchain info
+│   │       ├── twitter/                  # Legacy: Social sharing
+│   │       └── coinflip/                 # Legacy: Randomization
 │   ├── config.ts                   # Environment configuration
 │   ├── layout.tsx                  # Root layout
 │   └── page.tsx                    # Home page
